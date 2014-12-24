@@ -27,9 +27,9 @@ int main(){
 	LetterCounter frequency;
 	frequency.incCharCount(0x30);
 	
-	for(int i = 0; i <= 0xff; i++){
-	
-		printf("Seen %c %d times\n", i, frequency.getCharCount((char)i));
+	for(int i = 0; i <= 0x1ff; i++){
+		if(frequency.getCharCount(i) != 0)
+			printf("Seen %c %d times\n", i, frequency.getCharCount((char)i));
 	}
 
 
