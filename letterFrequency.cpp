@@ -2,23 +2,31 @@
 #include <string.h>
 #include <stdio.h>
 
+#define ASCII_MAX 0Xff
+
 class LetterCounter{
 	private:
 		int * countArray;
 	public:
 		LetterCounter(){
 			//create an array with space for every ascii character
-			countArray = new int[0xff];
-			memset(countArray, 0, 0xff*sizeof(int));
+			countArray = new int[ASCII_MAX];
+			memset(countArray, 0, ASCII_MAX*sizeof(int));
 		};
 		~LetterCounter(){
 			delete[] countArray;
 		};
-		void incCharCount(unsigned char asciiChar){
-			countArray[asciiChar] += 1;
+		void incCharCount(int asciiChar){
+			if(asciiChar < ASCII_MAX){
+				countArray[asciiChar] += 1;
+			}
 		}
-		int getCharCount(unsigned char asciiChar){
-			return countArray[asciiChar];
+		int getCharCount(int asciiChar){
+			if(asciiChar < ASCII_MAX){
+				return countArray[asciiChar];
+			}else{
+				return 0;
+			}
 		}
 };
 
@@ -29,7 +37,7 @@ int main(){
 	
 	for(int i = 0; i <= 0x1ff; i++){
 		if(frequency.getCharCount(i) != 0)
-			printf("Seen %c %d times\n", i, frequency.getCharCount((char)i));
+			printf("Seen %c %d times\n", i, frequency.getCharCount(i));
 	}
 
 
