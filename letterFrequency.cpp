@@ -15,14 +15,14 @@ class LetterCounter{
 			memset(countArray, 0, ASCII_MAX*sizeof(int));
 		};
 		~LetterCounter(){
-			delete[] countArray;
+			delete countArray;
 		};
-		void incCharCount(int asciiChar){
+		void incCharCount(unsigned int asciiChar){
 			if(asciiChar < ASCII_MAX){
 				countArray[asciiChar] += 1;
 			}
 		}
-		int getCharCount(int asciiChar){
+		int getCharCount(unsigned int asciiChar){
 			if(asciiChar < ASCII_MAX){
 				return countArray[asciiChar];
 			}else{
@@ -34,8 +34,6 @@ class LetterCounter{
 
 int main(){
 	LetterCounter frequency;
-
-	frequency.incCharCount(0x30);
 
 	char inputFileName[50];
 
@@ -50,12 +48,16 @@ int main(){
 		return 1;
 	}
 
+	while(!inputFile.eof()){
+		char rightNow = inputFile.get();
+		frequency.incCharCount(rightNow);
+	}
 
 	for(int i = 0; i <= 0x1ff; i++){
 		if(frequency.getCharCount(i) != 0)
-			printf("Seen %c %d times\n", i, frequency.getCharCount(i));
+			printf("Seen '%c' %d times\n", i, frequency.getCharCount(i));
 	}
-
+	inputFile.close();
 
 	return 0;
 }
