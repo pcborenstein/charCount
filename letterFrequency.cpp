@@ -33,13 +33,13 @@ class LetterCounter{
 
 
 int main(){
-	LetterCounter frequency;
+	LetterCounter charTracker;
 
 	char inputFileName[50];
 
 	printf("enter file name\n");
 	scanf("%s", inputFileName);
-	
+
 	std::ifstream inputFile;
 	inputFile.open(inputFileName);
 
@@ -50,12 +50,16 @@ int main(){
 
 	while(!inputFile.eof()){
 		char rightNow = inputFile.get();
-		frequency.incCharCount(rightNow);
+		charTracker.incCharCount(rightNow);
 	}
 
 	for(int i = 0; i <= 0x1ff; i++){
-		if(frequency.getCharCount(i) != 0)
-			printf("Seen '%c' %d times\n", i, frequency.getCharCount(i));
+		if(charTracker.getCharCount(i) != 0)
+			if(i == '\n'){
+				printf("\\n appeared %d times\n", charTracker.getCharCount(i));
+			}else{
+				printf("'%c' appead %d times\n", i, charTracker.getCharCount(i));
+			}
 	}
 	inputFile.close();
 
